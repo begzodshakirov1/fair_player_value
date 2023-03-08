@@ -3,7 +3,7 @@ from itertools import combinations, permutations
 import sys
 
 #Reading file from events list
-features_list = pd.read_csv('fv_estimates.csv', index_col=0).reset_index()
+features_list = pd.read_csv('fv_estimates.csv')
 
 def combine_names(pl_name):
     split_name = pl_name.split()
@@ -13,16 +13,18 @@ def combine_names(pl_name):
             comb_list.append(" ".join(comb))
     return comb_list
 
-test_comb = [combine_names(features_list['player_name'][_]) for _ in range(len(features_list))]
+test_comb = [combine_names(features_list['Player Name'][_]) for _ in range(len(features_list))]
 
 def get_player_names(inputname):
-    columns_to_show = ['player_name', 'prediction']
+    columns_to_show = ['Player Name', 'Market Value (mln \u20ac)']
     index_list = []
     for j in range(len(test_comb)):
         if inputname.title() in test_comb[j]:
             index_list.append((j))
-            
-    return features_list.iloc[index_list][columns_to_show]
+
+    return features_list.iloc[index_list][columns_to_show] #\
+                    #.style.set_properties(**{'text-align': 'left'}) \
+                    #.set_table_styles([dict(selector = 'th', props=[('text-align', 'left')])])
 
 if __name__ == '__main__':
     inputname = sys.argv[1]

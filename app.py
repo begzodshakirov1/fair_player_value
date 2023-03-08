@@ -10,4 +10,4 @@ def main_page():
 @website.route("/list")
 def list():
         inputname = request.args.get('player_name')
-        return get_player_names(inputname).to_html()
+        return get_player_names(inputname).to_html(index = False)
